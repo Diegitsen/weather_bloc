@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' show Client;
 import '../model/weather_response_model.dart';
+import 'package:inject/inject.dart';
 
+@provide
+@singleton
 class ApiProvider {
   Client client = Client();
   final _baseUrl =

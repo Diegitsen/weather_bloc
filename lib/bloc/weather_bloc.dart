@@ -1,9 +1,13 @@
 import 'package:rxdart/rxdart.dart';
 import '../model/weather_response_model.dart';
 import 'package:weather_app_bloc/persistance/repository.dart';
+import 'package:inject/inject.dart';
+
 
 class WeatherBloc {
-  Repository _repository = Repository();
+  //Repository _repository = Repository();
+  Repository _repository;
+  WeatherBloc(this._repository);
 
   final _weatherFetcher = PublishSubject<WeatherResponse>();
 
@@ -19,4 +23,4 @@ class WeatherBloc {
   }
 }
 
-final weatherBloc = WeatherBloc();
+//final weatherBloc = WeatherBloc();

@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
-
 import 'package:weather_app_bloc/ui/weather_screen.dart';
-import 'package:flutter/material.dart';
+import 'di/app_injector.dart';
+import 'package:inject/inject.dart';
 
-void main() => runApp(MyApp());
+typedef Provider<T> = T Function();
 
+void main() async {
+  final container = await AppInjector.create();
+  runApp(container.app);
+}
+
+@provide
 class MyApp extends StatelessWidget {
+  final Provider<WeatherScreen> weatherScreen;
+
+  MyApp( this.weatherScreen) : super();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Weather App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: WeatherScreen(),
+      home: Scaffold(body: weatherScreen()),
     );
   }
 }

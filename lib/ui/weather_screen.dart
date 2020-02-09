@@ -6,9 +6,15 @@ import '../model/main_model.dart';
 import '../model/sys_model.dart';
 import '../model/weather_response_model.dart';
 import '../model/wind_model.dart';
+import 'package:inject/inject.dart';
 
 
+@provide
 class WeatherScreen extends StatefulWidget {
+  WeatherBloc bloc;
+
+  WeatherScreen(this.bloc);
+
   @override
   WeatherScreenState createState() => WeatherScreenState();
 }
@@ -16,9 +22,9 @@ class WeatherScreen extends StatefulWidget {
 class WeatherScreenState extends State<WeatherScreen> {
   @override
   Widget build(BuildContext context) {
-    weatherBloc.fetchLondonWeather();
+    widget.bloc.fetchLondonWeather();
     return StreamBuilder(
-        stream: weatherBloc.weather,
+        stream: widget.bloc.weather,
         builder: (context, AsyncSnapshot<WeatherResponse> snapshot) {
           if (snapshot.hasData) {
             return _buildWeatherScreen(snapshot.data);
